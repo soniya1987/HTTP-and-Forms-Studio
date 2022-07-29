@@ -3,10 +3,31 @@
 <head>
 	<meta charset="utf-8">
 	<script>
-		// TODO: create a handler
-    window.addEventListener("load", function(){
-        // TODO: register the handler
-    });
+	let actions = {
+		"google": "https://www.google.com/search",
+		"duckDuckGo": "https://duckduckgo.com/",
+		"bing": "https://www.bing.com/search",
+		"ask": "https://www.ask.com/web"
+	}
+
+	function setSearchEngine() {
+		console.log("setSearchEngine has run");
+		let buttons = document.getElementsByName('engine');
+		let searchEngine = document.querySelectorAll("input[name=engine]:checked");
+		console.log("searchEngine", searchEngine);
+		let form = document.getElementById("searchForm");
+		form.setAttribute("action", actions[searchEngine[0].id])
+		form.submit();
+	}
+
+	window.addEventListener("load", function(event) {
+		let goButton = document.getElementById("goButton");
+		let googleButton = document.getElementById('google');
+		googleButton.checked = true;
+		goButton.addEventListener("click", function(literallyAnything) {
+			setSearchEngine();
+		})
+	});
 	</script>
 </head>
 
@@ -14,6 +35,12 @@
 
 	<form id="searchForm">
     <!-- TODO: add form elements -->
+	<input name="q" />
+	<label>Google<input type="radio" name="engine" id="google"></label>
+	<label>DuckDuckGo<input type="radio" name="engine" id="duckDuckGo"></label>
+	<label>Bing<input type="radio" name="engine" id="bing"></label>
+	<label>Ask<input type="radio" name="engine" id="ask"></label>
+	<input type="submit" id="goButton" value="Go!" />
 	</form>
 
 </body>
